@@ -39,7 +39,7 @@ density_csv = 'population_density.csv'
 
 
 def retrieve_all_regions():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     with open(population_json, 'r') as j:
         regs = json.loads(j.read())
     regions = set()
@@ -49,7 +49,7 @@ def retrieve_all_regions():
     return regions
 
 def process_population():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     latlon = pd.read_csv('latlon.csv',header=0)
 
     with open(population_json, 'r') as j:
@@ -58,10 +58,10 @@ def process_population():
         reg = k.split('--')[0].strip()
         idx = latlon.index[latlon['Region'] == reg]
         latlon.loc[idx,'Population'] = int(v)
-    latlon.to_csv (r'../app/data/processed_population.csv', index = False, header=True)
+    latlon.to_csv (r'/app/data/processed_population.csv', index = False, header=True)
             
 def retrieve_all_regions_covid():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     with open(covid_json, 'r') as j:
         covid = json.loads(j.read())
     regions = set()
@@ -86,7 +86,7 @@ def retrieve_all_regions_covid():
     return regions
 
 def process_covid():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     latlon_covid = pd.read_csv('latlon_covid.csv',header=0)
     with open(covid_json, 'r') as j:
         covid = json.loads(j.read())
@@ -121,12 +121,12 @@ def process_covid():
             except Exception as e:
                 print('Something wrong while parsing ')
                 print(tmp)
-    df.to_csv ('../app/data/Covid-19.csv', index = False, header=True)
+    df.to_csv ('/app/data/Covid-19.csv', index = False, header=True)
     newdf = df.groupby(['Time Stamp','Region', 'Latitude', 'Longitude'])['Number of cases'].sum().reset_index()
-    newdf.to_csv ('../app/data/Covid-19-aggregated.csv', index = False, header=True)
+    newdf.to_csv ('/app/data/Covid-19-aggregated.csv', index = False, header=True)
 
 def process_density():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     covid_agg = pd.read_csv('Covid-19-aggregated.csv',header=0)
     # population = pd.read_csv('processed_population.csv',header=0)
     population = pd.read_csv('full_population.csv',header=0)
@@ -145,7 +145,7 @@ def process_density():
             print('Successful! '+row['Region'])
         except Exception as e:
             print('Can not find the community population of '+row['Region'])
-    covid_den.to_csv ('../app/data/nCovid-19-density.csv', index = False, header=True)
+    covid_den.to_csv ('/app/data/nCovid-19-density.csv', index = False, header=True)
 
 def retrieve_gps_by_region(reg):
     key = API_KEY  
@@ -179,7 +179,7 @@ def retrieve_gps(all_regions):
         except Exception as e:
             print('Can not retrieve region geo info!')
             print(e)
-    latlon.to_csv (r'../app/data/latlon.csv', index = False, header=True)
+    latlon.to_csv (r'/app/data/latlon.csv', index = False, header=True)
 
 def retrieve_gps_covid():
     key = API_KEY  
@@ -200,10 +200,10 @@ def retrieve_gps_covid():
         except Exception as e:
             print('Can not retrieve region geo info!')
             print(e)
-    latlon.to_csv (r'../app/data/latlon_covid.csv', index = False, header=True)    
+    latlon.to_csv (r'/app/data/latlon_covid.csv', index = False, header=True)    
 
 def retrieve_covid_date():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     covid = pd.read_csv('Covid-19-density.csv',header=0)
     denfold = 'dailycases'
     if not os.path.exists(denfold):
@@ -219,7 +219,7 @@ def retrieve_covid_date():
         sub.to_csv (file_name, index = True, header=True)  
 
 def retrieve_risk_date():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     # covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
     # denfold = 'dailycases'
     covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
@@ -241,7 +241,7 @@ def generate_heatmap_color_bydate(d):
     mapfold='../plots/map'
     if not os.path.exists(mapfold):
         os.makedirs(mapfold)
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     # covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
     # filename = 'dailycasesR/%s.csv'%(d)
     # outfile = '../plots/map/risk_%s.png'%(d)
@@ -347,7 +347,7 @@ def generate_heatmap_color_bydate2(d):
     mapfold='../plots/map'
     if not os.path.exists(mapfold):
         os.makedirs(mapfold)
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
 
     max_den = covid['Density'].max()
@@ -399,7 +399,7 @@ def generate_heatmap_color_bydate2(d):
 
 
 def generate_heatmap_color():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     # covid = pd.read_csv('Covid-19-density.csv',header=0)
     covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
     date_list = covid['Time Stamp'].unique()
@@ -411,7 +411,7 @@ def generate_heatmap_bydate(d):
     mapfold='../plots/map'
     if not os.path.exists(mapfold):
         os.makedirs(mapfold)
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     covid = pd.read_csv('Covid-19-density.csv',header=0)
     max_den = covid['Density'].max()
     regions = gpd.read_file('shapefile/la.shp')
@@ -442,7 +442,7 @@ def generate_heatmap_bydate(d):
 
 
 def generate_heatmap():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     covid = pd.read_csv('Covid-19-density.csv',header=0)
     date_list = covid['Time Stamp'].unique()
     for d in date_list:
@@ -466,10 +466,10 @@ def extract_population():
         print(pop)
         popdf.loc[c-1] = [name,pop]
         c = c+1
-    popdf.to_csv('../app/data/new_population.csv', index = False, header=True)
+    popdf.to_csv('/app/data/new_population.csv', index = False, header=True)
 
 def aggregate_population():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     pop1_df = pd.read_csv('new_population.csv',header=0)
     pop2_df = pd.read_csv('processed_population.csv',header=0)
     cur_regions = set(pop1_df['Region'].unique().flatten())
@@ -478,11 +478,11 @@ def aggregate_population():
         if row['Region'] not in cur_regions:
             pop1_df.loc[cur_idx] = [row['Region'],row['Population']]
             cur_idx = cur_idx+1
-    pop1_df.to_csv('../app/data/full_population.csv', index = False, header=True)
+    pop1_df.to_csv('/app/data/full_population.csv', index = False, header=True)
 
 
 def clean_data():
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     with open("Covid-19-R.csv","r") as source:
         rdr= csv.reader( source )
         with open("Covid-19-R-cleaned.csv","w") as result:
@@ -496,7 +496,7 @@ def clean_data():
 def plot_caseden_popden(d):
     import seaborn as sns
 
-    os.chdir('../app/data/')
+    os.chdir('/app/data/')
     casefile = 'dailycases/%s.csv'%(d)
     caseden = pd.read_csv(casefile,header=0)
     popden = pd.read_csv('population_density.csv',header=0)
