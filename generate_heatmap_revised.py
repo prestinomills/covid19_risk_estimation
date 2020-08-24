@@ -238,13 +238,13 @@ def retrieve_risk_date():
 
     
 def generate_heatmap_color_bydate(d):
-    mapfold='../plots/map'
+    mapfold='/app/plots/map'
     if not os.path.exists(mapfold):
         os.makedirs(mapfold)
     os.chdir('/app/data/')
     # covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
     # filename = 'dailycasesR/%s.csv'%(d)
-    # outfile = '../plots/map/risk_%s.png'%(d)
+    # outfile = '/app/plots/map/risk_%s.png'%(d)
     covid = pd.read_csv('Covid-19-R-cleaned.csv',header=0)
     filename = 'dailycasesR/%s.csv'%(d)
     
@@ -340,11 +340,11 @@ def generate_heatmap_color_bydate(d):
     # plt.legend(handles=colors_patch,loc = "lower right",facecolor="lightblue")
     # # plt.show()
 
-    # outfile = '../plots/map/risk_%s.png'%(d)
+    # outfile = '/app/plots/map/risk_%s.png'%(d)
     # plt.savefig(outfile,bbox_inches='tight')
 
 def generate_heatmap_color_bydate2(d):
-    mapfold='../plots/map'
+    mapfold='/app/plots/map'
     if not os.path.exists(mapfold):
         os.makedirs(mapfold)
     os.chdir('/app/data/')
@@ -393,7 +393,7 @@ def generate_heatmap_color_bydate2(d):
     plt.tight_layout()
     ax.axis('off')
     #plt.show()
-    outfile = '../plots/map/%s.png'%(d)
+    outfile = '/app/plots/map/%s.png'%(d)
     plt.savefig(outfile,bbox_inches='tight')
 
 
@@ -408,7 +408,7 @@ def generate_heatmap_color():
 
 
 def generate_heatmap_bydate(d):
-    mapfold='../plots/map'
+    mapfold='/app/plots/map'
     if not os.path.exists(mapfold):
         os.makedirs(mapfold)
     os.chdir('/app/data/')
@@ -436,7 +436,7 @@ def generate_heatmap_bydate(d):
     normalize = matplotlib.colors.Normalize(vmin=0, vmax=max_den)
     merged.plot('Density', cmap=color,norm=normalize, linewidth=0.8, ax=ax, edgecolor='0.8', figsize=(40,20))
     # plt.show()
-    outfile = '../plots/map/%s.png'%(d)
+    outfile = '/app/plots/map/%s.png'%(d)
     plt.savefig(outfile,bbox_inches='tight')
 
 
